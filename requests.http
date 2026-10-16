@@ -1,0 +1,36 @@
+@baseUrl = http://localhost:3000
+
+### 1. Valid signup (expect 201)
+POST {{baseUrl}}/api/auth/signup
+Content-Type: application/json
+Origin: {{baseUrl}}
+
+{
+  "name": "Paula",
+  "email": "paula@example.com",
+  "password": "a-long-test-password-123",
+  "workSpaceName": "Demo Co"
+}
+
+### 2. No Origin header (expect 403)
+POST {{baseUrl}}/api/auth/signup
+Content-Type: application/json
+
+{
+  "name": "Paula",
+  "email": "other@example.com",
+  "password": "a-long-test-password-123",
+  "workSpaceName": "Demo Co"
+}
+
+### 3. Short password (expect 400 with field errors)
+POST {{baseUrl}}/api/auth/signup
+Content-Type: application/json
+Origin: {{baseUrl}}
+
+{
+  "name": "Paula",
+  "email": "short@example.com",
+  "password": "12345",
+  "workSpaceName": "Demo Co"
+}
