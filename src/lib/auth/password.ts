@@ -17,3 +17,7 @@ export async function verifyPassword(hashedPassword: string, password: string): 
     }
 }
 
+export function getDummyHash(): Promise<string> {
+    const dummyHash = hashPassword("this-is-not-a-real-password");
+    return dummyHash;
+}
