@@ -39,7 +39,7 @@ export async function validateSession(
 } | null> {
     const hashedToken = hashSessionToken(token);
     const sessionRecord = await prisma.session.findUnique({
-        where: { id: hashSessionToken(token) },
+        where: { id: hashedToken },
         select: {
             id: true,
             expiresAt: true,

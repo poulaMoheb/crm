@@ -34,3 +34,45 @@ Origin: {{baseUrl}}
   "password": "12345",
   "workSpaceName": "Demo Co"
 }
+
+
+### Login OK (expect 200 and Set-Cookie)
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+Origin: {{baseUrl}}
+
+{ "email": "paula@example.com", "password": "a-long-test-password-123" }
+
+### Wrong password (expect 401)
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+Origin: {{baseUrl}}
+
+{ "email": "paula@example.com", "password": "wrong-password-123" }
+
+### Unknown email (expect the same 401)
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+Origin: {{baseUrl}}
+
+{ "email": "nobody@example.com", "password": "wrong-password-123" }
+
+### No Origin (expect 403)
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{ "email": "paula@example.com", "password": "a-long-test-password-123" }
+
+### Logout (run Login OK first; expect 204)
+POST {{baseUrl}}/api/auth/logout
+Origin: {{baseUrl}}
+
+### Logout again with no session (expect 204 again)
+POST {{baseUrl}}/api/auth/logout
+Origin: {{baseUrl}}
+
+### Logout without Origin (expect 403)
+POST {{baseUrl}}/api/auth/logout
+
+### GET is not allowed (expect 405)
+GET {{baseUrl}}/api/auth/logout
